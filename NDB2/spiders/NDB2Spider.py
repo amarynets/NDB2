@@ -6,10 +6,13 @@ from NDB2.items import NDB2
 class Ndb2spiderSpider(scrapy.Spider):
     name = "NDB2"
     allowed_domains = ["price.ua"]
-   
-    start_urls = [
-        "http://price.ua/catc839t14.html?price[min]=5000&price[max]=140749"
-    ]
+    urls = []
+    urls.append("http://price.ua/catc839t14.html?price[min]=5000&price[max]=140749")
+    for i in range(2, 115):
+        link = "http://price.ua/catc839t14/page" + str(i) + ".html?price[min]=5000&price[max]=140749"
+        urls.append(link)
+    
+    start_urls = urls
 
     def parse(self, response):
         
@@ -21,10 +24,14 @@ class Ndb2spiderSpider(scrapy.Spider):
             description=[]
             for div in product.xpath(".//div[@class='characteristics']/div/div[@class='item']"):
                 description.append(div.xpath("./text()").extract()[0].strip()+' '+div.xpath("./span/text()").extract()[0].strip())
-            item['properties']= ' '.join(map(str, description))
-            item['image'] = product.xpath('.//div[@class="photo-wrap"]/a/span/span/img/@data-original').extract()
+            item['properties']= str(description)
+            item['image'] = product.xpath('.//div[@class="photo-wrap"]/a/span/span/img/@data-original').extract_first()
 
-            item['price'] = str(product.xpath('.//div[@class="price-wrap"]/span/text()').extract_first()).replace("\xa0", "")
+            price = product.xpath('.//div[@class="price-wrap"]/span/text()').extract_first()
+            if price == None:
+                item['price'] = None
+            else:
+                item['price'] = int(str(price).replace("\xa0", ""))
                  
             yield item
             
