@@ -23,7 +23,7 @@ class Ndb2spiderSpider(scrapy.Spider):
                 description.append(div.xpath("./text()").extract()[0].strip()+' '+div.xpath("./span/text()").extract()[0].strip())
             item['properties']=description
             item['image'] = product.xpath('.//div[@class="photo-wrap"]/a/span/span/img/@data-original').extract()
-            item['price'] = str(product.xpath('.//div[@class="price-wrap"]/span/text()').extract()).replace("\xa0","")
+            item['price'] = str(product.xpath('.//div[@class="price-wrap"]/span/text()').extract_first()).replace("\xa0", "")
             yield item
             
             #item['url'] = str(response.xpath('./a[contains(@class,"model-name")]/@href').extract())
