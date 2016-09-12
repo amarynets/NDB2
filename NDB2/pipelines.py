@@ -33,13 +33,12 @@ class MySQLPipeline(object):
 
         return d
     def _do_upsert(self, conn, item, spider):
-        insert = """ INSERT INTO notebook (url, properties, brand, price, title, image) 
-        VALUES (%s, %s, %s, %s, %s, %s)"""
+        insert = """ INSERT INTO notebook (url, properties, price, title, image) 
+        VALUES (%s, %s, %s, %s, %s)"""
         data = (
             item['url'],
             item['properties'],
-            item['brand'],
-            int(item['price']),
+            item['price'],
             item['title'],
             item['image']
         )

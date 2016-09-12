@@ -8,22 +8,24 @@ class Ndb2spiderSpider(scrapy.Spider):
     allowed_domains = ["price.ua"]
    
     start_urls = [
-        "http://price.ua/catc839t14/page2.html"
+        "http://price.ua/catc839t14.html"
     ]
 
     def parse(self, response):
-        item = NDB2()
+        
         for product in response.xpath("//div[contains(@class,'product-item-wrap')]"):
-            
-            item['title']=product.xpath(".//a[contains(@class,'model-name')]/text()").extract()
-            item['url']=product.xpath(".//a[contains(@class,'model-name')]/@href").extract()
+            item = NDB2()
+            item['title']=str(product.xpath(".//a[contains(@class,'model-name')]/text()").extract())
+            item['url']=str(product.xpath(".//a[contains(@class,'model-name')]/@href").extract())
 
             description=[]
             for div in product.xpath(".//div[@class='characteristics']/div/div[@class='item']"):
                 description.append(div.xpath("./text()").extract()[0].strip()+' '+div.xpath("./span/text()").extract()[0].strip())
-            item['properties']=description
-            item['image'] = product.xpath('.//div[@class="photo-wrap"]/a/span/span/img/@data-original').extract()
+            item['properties']=str(description)
+            item['image'] = str(product.xpath('.//div[@class="photo-wrap"]/a/span/span/img/@data-original').extract())  
+
             item['price'] = str(product.xpath('.//div[@class="price-wrap"]/span/text()').extract_first()).replace("\xa0", "")
+                 
             yield item
             
             #item['url'] = str(response.xpath('./a[contains(@class,"model-name")]/@href').extract())

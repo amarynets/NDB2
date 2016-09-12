@@ -65,9 +65,12 @@ ROBOTSTXT_OBEY=False
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'NDB2.pipelines.SomePipeline': 300,
-#}
+ITEM_PIPELINES = { 'NDB2.pipelines.MySQLPipeline': 300}
+#Database settings
+MYSQL_HOST = 'localhost'
+MYSQL_DBNAME = 'notebookdb'
+MYSQL_USER = 'root'
+MYSQL_PASSWD = 'andrew05'
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html

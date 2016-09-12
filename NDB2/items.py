@@ -10,8 +10,7 @@ from scrapy.item import Item, Field
 
 class NDB2(Item):
     image = Field()
-    brand = Field()
-    title = Field()
     price = Field()
     properties = Field()
     url = Field()
+    title = Field()
