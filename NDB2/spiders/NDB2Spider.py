@@ -8,12 +8,12 @@ class Ndb2spiderSpider(scrapy.Spider):
     allowed_domains = ["price.ua"]
     urls = []
     urls.append("http://price.ua/catc839t14.html?price[min]=5000&price[max]=140749")
-    for i in range(2, 10):
+    for i in range(2, 11):
         link = "http://price.ua/catc839t14/page" + str(i) + ".html?price[min]=5000&price[max]=140749"
         urls.append(link)
     #"http://price.ua/catc839t14/page1.html"
     start_urls = urls
-    
+
     def parse(self, response):
         
         for product in response.xpath("//div[contains(@class,'product-item-wrap')]"):
