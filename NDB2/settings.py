@@ -65,7 +65,7 @@ ROBOTSTXT_OBEY=False
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-ITEM_PIPELINES = { 'NDB2.pipelines.MySQLPipeline': 300}
+#ITEM_PIPELINES = { 'NDB2.pipelines.MySQLPipeline': 300}
 #Database settings
 MYSQL_HOST = 'localhost'
 MYSQL_DBNAME = 'notebookdb'

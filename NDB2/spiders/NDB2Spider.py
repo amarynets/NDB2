@@ -12,7 +12,9 @@ class Ndb2spiderSpider(scrapy.Spider):
         link = "http://price.ua/catc839t14/page" + str(i) + ".html?price[min]=5000&price[max]=140749"
         urls.append(link)
     
-    start_urls = urls
+    start_urls = [
+        "http://price.ua/catc839t14/page1.html"
+    ]
 
     def parse(self, response):
         
@@ -25,7 +27,7 @@ class Ndb2spiderSpider(scrapy.Spider):
             for div in product.xpath(".//div[@class='characteristics']/div/div[@class='item']"):
                 description.append(div.xpath("./text()").extract()[0].strip()+' '+div.xpath("./span/text()").extract()[0].strip())
             item['properties']= str(description)
-            item['image'] = product.xpath('.//div[@class="photo-wrap"]/a/span/span/img/@data-original').extract_first()
+            item['image'] = product.xpath('//div[@class="white-wrap clearer-block"]//img/@src').extract_first()
 
             price = product.xpath('.//div[@class="price-wrap"]/span/text()').extract_first()
             if price == None:
