@@ -1,2 +1,2 @@
-del "out.csv"
-scrapy crawl NDB2 -o out.csv
+del "out.json"
+scrapy crawl NDB2 -o out.json
